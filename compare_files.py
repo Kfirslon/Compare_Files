@@ -3,6 +3,8 @@ import pandas as pd
 from openpyxl import Workbook
 from openpyxl.styles import PatternFill
 from io import BytesIO
+import yagmail
+import tempfile
 
 st.set_page_config(page_title="File Comparison Tool", layout="centered")
 st.title("🔍 Compare Two Files (CSV or Excel)")
@@ -19,7 +21,7 @@ def read_data(uploaded_file):
     else:
         return pd.read_excel(uploaded_file)
 
-# Highlighting logic (from your script)
+# Highlighting logic
 def highlight_diffs_in_files(df1, df2):
     red = PatternFill(start_color="FF9999", end_color="FF9999", fill_type="solid")
 
@@ -96,5 +98,30 @@ if data1 and data2:
                 file_name="file2_highlighted.xlsx",
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             )
+            # Email input and send button appear only after download links
+            email = st.text_input("Enter your email to receive the results (optional):")
+            if st.button("Send Results"):
+                if email:
+                    try:
+                        sender_email = "kfirslon@gmail.com"
+                        app_password = "hwqcvquvxhjcldat"  # 16 chars, no spaces
+                        yag = yagmail.SMTP(sender_email, app_password)
+                        with tempfile.NamedTemporaryFile(delete=False, suffix=".xlsx") as tmp1, \
+                             tempfile.NamedTemporaryFile(delete=False, suffix=".xlsx") as tmp2:
+                            tmp1.write(out1.getvalue())
+                            tmp1.flush()
+                            tmp2.write(out2.getvalue())
+                            tmp2.flush()
+                            yag.send(
+                                to=email,
+                                subject="Your File Comparison Results",
+                                contents="Attached are the highlighted comparison results for your files.",
+                                attachments=[tmp1.name, tmp2.name]
+                            )
+                        st.success(f"Results sent to {email}!")
+                    except Exception as e:
+                        st.error(f"Failed to send email: {e}")
+                else:
+                    st.warning("Please enter an email address to send the results.")
     except Exception as e:
         st.error(f"Error processing files: {e}")
