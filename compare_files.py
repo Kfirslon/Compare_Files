@@ -6,24 +6,24 @@ from io import BytesIO
 import yagmail
 import tempfile
 
-# Soft blue background
 st.markdown("""
     <style>
     html, body, [data-testid="stAppViewContainer"] {
         background-color: #eaf3fb;
     }
 
-    .stTextInput > div > input,
-    .stButton button,
-    .stDownloadButton button {
+    input[type="text"], input[type="email"] {
         background-color: white !important;
         color: black !important;
-        border-radius: 6px;
-        border: 1px solid #ccc;
+        border-radius: 6px !important;
+        border: 1px solid #ccc !important;
+        padding: 0.5rem !important;
     }
 
-    .stMarkdown, .stHeading, .stFileUploader label {
-        color: #1e2a38 !important;
+    .stTextInput > div {
+        background-color: white !important;
+        border-radius: 10px;
+        box-shadow: 0 0 5px rgba(0,0,0,0.05);
     }
 
     .stFileUploader {
@@ -34,6 +34,7 @@ st.markdown("""
     }
     </style>
 """, unsafe_allow_html=True)
+
 
 
 
