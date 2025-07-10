@@ -6,14 +6,15 @@ from io import BytesIO
 import yagmail
 import tempfile
 
-# Inject custom background color
+# Inject custom background color that actually works
 st.markdown("""
     <style>
-    .stApp {
+    html, body, [data-testid="stAppViewContainer"] {
         background-color: #f0f8ff;
     }
     </style>
 """, unsafe_allow_html=True)
+
 
 
 st.set_page_config(page_title="File Comparison Tool", layout="centered")
