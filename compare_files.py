@@ -6,31 +6,35 @@ from io import BytesIO
 import yagmail
 import tempfile
 
-# Dark blue background
+# Soft blue background
 st.markdown("""
     <style>
     html, body, [data-testid="stAppViewContainer"] {
-        background-color: #1e2a38;
-        color: white;
+        background-color: #eaf3fb;
     }
 
-    /* Optional: make text and buttons visible on dark */
-    .stTextInput > div > input, .stButton button, .stDownloadButton button {
-        color: black !important;
+    .stTextInput > div > input,
+    .stButton button,
+    .stDownloadButton button {
         background-color: white !important;
-        border: none;
+        color: black !important;
         border-radius: 6px;
+        border: 1px solid #ccc;
     }
 
-    .stTextInput label, .stDownloadButton label, .stFileUploader label {
-        color: white !important;
+    .stMarkdown, .stHeading, .stFileUploader label {
+        color: #1e2a38 !important;
     }
 
-    .stMarkdown, .stHeading {
-        color: white !important;
+    .stFileUploader {
+        background-color: white;
+        padding: 1rem;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.05);
     }
     </style>
 """, unsafe_allow_html=True)
+
 
 
 
