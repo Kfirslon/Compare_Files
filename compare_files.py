@@ -6,14 +6,32 @@ from io import BytesIO
 import yagmail
 import tempfile
 
-# Inject custom background color that actually works
+# Dark blue background
 st.markdown("""
     <style>
     html, body, [data-testid="stAppViewContainer"] {
-        background-color: #f0f8ff;
+        background-color: #1e2a38;
+        color: white;
+    }
+
+    /* Optional: make text and buttons visible on dark */
+    .stTextInput > div > input, .stButton button, .stDownloadButton button {
+        color: black !important;
+        background-color: white !important;
+        border: none;
+        border-radius: 6px;
+    }
+
+    .stTextInput label, .stDownloadButton label, .stFileUploader label {
+        color: white !important;
+    }
+
+    .stMarkdown, .stHeading {
+        color: white !important;
     }
     </style>
 """, unsafe_allow_html=True)
+
 
 
 
